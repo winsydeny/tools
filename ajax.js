@@ -1,6 +1,7 @@
 /*
     get 请求
-    url为对象，里面有三个基本的属性,url ,user , pwd,
+    url为对象
+    data 发送数据
     success 和 fail 均为回调函数，它们在服务器返回数据的时候才执行
 
 
@@ -12,43 +13,50 @@
 
 
     使用实例:    
-        ajax({
-            method:"GET",
-            url:"test.php",
-            user:"test",
-            pwd:11
-        },function(data){
-            // console.log(data.responseText);
-            alert(data.responseText);
-        },function(fail){
-            console.log(fail.status);
-        })
+ajax({
+        method:"get",
+        url:"test.php",
+        data:{
+            username:"test",
+            password:123456789,
+        },
+        success:function(res){
+            成功返回
+        },
+        fail:function(err){
+            失败返回
+        }
+});
 */
-function ajax(obj,success,fail){
+function ajax(obj){
+    // toUrl(obj);
     if(window.XMLHttpRequest){
         let xhr = new XMLHttpRequest();
         let allurl,methods;
-        if(obj.method == "POST"){
+        if(obj.method === "POST"||obj.method === "post"){
             methods = "POST";
             allurl = obj.url;
-        }else{
+        }else if(obj.method === "GET"||obj.method ==="get"){
             methods = "GET";
-            !obj.user?allurl = obj.url:allurl = totalUrl(obj);
+            !obj.data?allurl = obj.url:allurl = toUrl(obj)
+        }else{
+            alert("请求参数错误");
         }
+        // console.log(allurl);
         xhr.open(methods,allurl,true);
         xhr.onreadystatechange = function(res){
-            if(this.readyState == 4){
+            if(this.readyState === 4){
                 if(this.status >= 200&& this.status < 300){
-                    // console.log(this.status);
-                    success(res.target);
-                }else{
-                    fail(res.target);
-                }   
+                    obj.success(res.target);
+                    }else{
+                        obj.fail(res.target.status);
+                    }
+                }
             }
-        }
-        if(obj.method == "POST"){
+        
+        if(obj.method === "POST"||obj.method === "post"){
             xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            xhr.send("user="+obj.user+"&"+"pwd="+obj.pwd);
+            xhr.send("user="+obj.data.user+"&"+"pwd="+obj.data.pwd);
         }else{
             xhr.send(null);    
         }
@@ -58,6 +66,12 @@ function ajax(obj,success,fail){
     }
 
 }
-function totalUrl(obj){
-    return obj.url+"?user"+"="+encodeURIComponent(obj.user)+"&pwd"+"="+encodeURIComponent(obj.pwd);
+function toUrl(obj){
+    let arr = [];
+    for(let item in obj.data)
+        {   
+            arr.push(item+"="+encodeURIComponent(obj.data[item]));
+        }
+    // console.log(obj.data);
+    return obj.url +"?"+arr.join("&");
 }

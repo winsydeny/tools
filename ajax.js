@@ -7,14 +7,35 @@
     post 请求
     post 传递参数必须在send 函数当中去传递给服务器
     并且必须设置头部信息
+
+
+
+
+    使用实例:    
+        ajax({
+            method:"GET",
+            url:"test.php",
+            user:"test",
+            pwd:11
+        },function(data){
+            // console.log(data.responseText);
+            alert(data.responseText);
+        },function(fail){
+            console.log(fail.status);
+        })
 */
-function ajax(url,success,fail){
+function ajax(obj,success,fail){
     if(window.XMLHttpRequest){
         let xhr = new XMLHttpRequest();
-        let allurl;
-        !url.user?allurl = url.url:allurl = totalUrl(url);
-        console.log(allurl);
-        xhr.open("GET",allurl,true);
+        let allurl,methods;
+        if(obj.method == "POST"){
+            methods = "POST";
+            allurl = obj.url;
+        }else{
+            methods = "GET";
+            !obj.user?allurl = obj.url:allurl = totalUrl(obj);
+        }
+        xhr.open(methods,allurl,true);
         xhr.onreadystatechange = function(res){
             if(this.readyState == 4){
                 if(this.status >= 200&& this.status < 300){
@@ -25,13 +46,18 @@ function ajax(url,success,fail){
                 }   
             }
         }
-        xhr.send(null);    
+        if(obj.method == "POST"){
+            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhr.send("user="+obj.user+"&"+"pwd="+obj.pwd);
+        }else{
+            xhr.send(null);    
+        }
 
     }else{
         alert("当前浏览器不支持此功能，请更换浏览器");
     }
 
 }
-function totalUrl(url){
-    return url.url+"?user"+"="+encodeURIComponent(url.user)+"&pwd"+"="+encodeURIComponent(url.pwd);
+function totalUrl(obj){
+    return obj.url+"?user"+"="+encodeURIComponent(obj.user)+"&pwd"+"="+encodeURIComponent(obj.pwd);
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="pagination.css" >
+</head>
+<body>
+    <div id="wrapper" class="cancelselect">
+    </div>
+    <script src="pagination.js"></script>
+    <script>
+    //使用方法:
+    // html 必须具有id为wrapper的div
+    // let pageination = new Pagination(total,cur,around);
+    // total:总共有多少页 cur:起始位置(默认为第一页) around:分割间距(默认为2)
+    // 插件全部采用ES6语法
+    let pageination = new Pagination(20);
+    pageination.gener();
+    </script>
+    <script>
+    </script>
+</body>
+</html>

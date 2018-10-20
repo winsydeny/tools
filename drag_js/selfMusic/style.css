@@ -1,0 +1,102 @@
+body{
+}
+*{padding: 0;margin: 0;}
+#togle{
+		margin: 0 3px;
+		width: 14px;
+		display: inline-block;
+}
+		#self-audio{
+			padding: 10px;
+			margin-left: 17px;
+		}
+		#audio{
+			position: relative;
+			width: 67%;
+			/*margin: 10px auto;*/
+			margin: 10px;
+			left: 74px;
+			
+		}
+		#progress{
+			width: 100%;
+			height: 4px;
+			background: white;
+			border-radius: 2px;
+
+		}
+		.circle{
+			width: 10px;
+			height: 10px;
+			background: white;
+			border-radius: 50%;
+			position: absolute;
+			top: -3px;
+			left: -2px;
+			cursor: pointer;
+		}
+		#play{
+				/*width: 80%;*/
+			height: 4px;
+			background: #e91e63;
+			position: absolute;
+			top: 0px;
+			border-radius: 2px;
+		}
+		#time{
+			/*float: left;*/
+			width: 73px;
+   			 float: left;
+		}
+#miniplayer{
+	width: 352px;
+	height: 70px;
+    background-image: linear-gradient(0deg, #03A9F4 0%, #224968 100%);
+    border-radius: 6px;
+	box-shadow: 2px 3px 8px #d3cbcb;
+	position: relative;
+	margin: 11% auto;
+}
+#time{
+	color: white;
+	font-size: 12px;
+	margin-top: 4px;
+	margin-left: 5px;
+}
+img{
+	width: 100%;
+	height: 160px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px; 
+
+}
+.img-i{
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url('./resource/next copy.png');
+}
+.bottom{
+	width: 100%;
+	height: 60px;
+    /*background-image: linear-gradient(0deg, #fbfbfb 0%, #eff1f1 100%);*/
+	border-radius: 6px;
+	
+}
+.control-left{
+	position: absolute;
+	/*bottom: 84px;*/
+	left: 20px;
+}
+.control-right{
+	position: absolute;
+	right: 26px;
+	/*bottom: 84px;*/
+}
+i{		
+	color: white;
+	font-size: 18px;
+	padding: 0 4px;
+	display: block;
+	cursor: pointer;
+}

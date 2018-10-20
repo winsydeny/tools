@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>drag</title>
+	<style>
+		#box1{
+			width: 100px;
+			height: 100px;
+			position: relative;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="box1"></div>
+	<script>
+		let box1 = document.querySelector("#box1");
+		// box1.onclick = function(e){
+			
+		// }
+		// document.onmousedown = function(e){
+			// console.log(e.target.offsetLeft);
+			// console.log(e.target.offsetTop);
+			// console.log(e);
+			//当前点击box的位置，计算出box左边到点击位置的距离，y与x同样
+			// pageX 以浏览器左上角，不会随滚动条而变动
+			// clientX 同样以浏览器左上角为参照，但是会随着滚动条而变化
+			// screenX 是以屏幕左上角为参照，
+			// let x = e.pageX - box1.offsetLeft;
+			// let y = e.pageY - box1.offsetTop;
+			// document.onmousemove = function(e){
+			// 	console.log(e.pageX);
+
+			// 	box1.style.left = e.pageX - x + "px";
+			// 	box1.style.top = e.pageY - y + "px";
+				// console.log(x);
+
+			// }
+		// }
+		
+		// document.onmouseup = function(e){
+			// console.log("onmouseup");
+			// document.onmousemove = null;
+		// }
+
+		//DOM2 级事件
+		let flag = false;
+		let x = 0,y = 0;
+		document.addEventListener("mousedown",getXY,true);
+		document.addEventListener("mousemove",getMove,true);
+		document.addEventListener("mouseup",CancleMove,true);
+		function getXY(e){
+				x = e.pageX - box1.offsetLeft;
+				y = e.pageY - box1.offsetTop;	
+				flag = !flag;
+		}
+		function getMove(e){
+			let x2 = e.pageX - x;
+			let y2 = e.pageY - y;
+			if(flag){
+				box1.style.left = `${x2}px`;
+				box1.style.top = `${y2}px`;
+			}		
+		}
+		function CancleMove(){
+			document.removeEventListener("mousemove",getMove,true);
+			document.addEventListener("mousemove",getMove,true);
+			flag = !flag;				
+		}
+	</script>
+</body>
+</html>
